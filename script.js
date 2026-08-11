@@ -1,10 +1,11 @@
 const cup1 = document.querySelector('.cup:nth-child(1)');
 const cup2 = document.querySelector('.cup:nth-child(2)');
 const resBox = document.getElementById('cupRes');
+const countText = document.getElementById('countText');
 const lotBtn = document.getElementById('lotBtn');
 const lotBox = document.getElementById('lotBox');
 
-// 通用版城隍爺60靈籤完整內置
+// 城隍爺60靈籤
 const lotList = [
 "第1籤 上上：瑞氣盈門百事昌，善人自有護持方，家宅安寧財祿旺，一帆風順福綿長",
 "第2籤 上吉：春風得意遇良緣，貴人相扶路自寬，謀事可期多順遂，平安二字值千金",
@@ -53,10 +54,10 @@ const lotList = [
 "第45籤 中平：得失隨緣莫強求，日常安分少憂愁，多行善事修身性，福運自然為你留",
 "第46籤 中下：錢財往來要謹慎，他人求助細審問，不貪高利防陷阱，守好本錢免受困",
 "第47籤 上上：天恩庇護福綿長，家宅安寧百業昌，謀事順遂無多阻，親朋和樂滿庭芳",
-"第48籤 中吉：風波漸定路平穩，穩守家門謀穩穩，待人真誠多積善，後福綿延日月存",
+"第48籤 中吉：風波漸定路平穩，穩守家門謀穩利，待人真誠多積善，後福綿延日月存",
 "第49籤 中平：人生起落本尋常，不必焦慮不必慌，修身養性行仁善，靜待花開自芬芳",
 "第50籤 下籤：心浮氣躁易偏差，輕信他人易受欺，暫停遠慮安於舊，穩守家園避險危",
-"第51籤 上吉：積善之家有餘慶，神明暗護禍難靜，謀望皆成家宅旺，年年順遂享安寧",
+"第51籤 上吉：積善之家有餘慶，神明暗護禍難侵，謀望皆成家宅旺，年年順遂享安寧",
 "第52籤 中吉：霧散雲開見遠山，貴人相助渡艱難，腳踏實地謀長計，步步登高眼界寬",
 "第53籤 中平：平淡生涯無大波，安分守己少奔波，親人和睦身康健，勝過人間萬貫多",
 "第54籤 中下：閒言閒語易傷人，少議他人短與真，低調處事多忍讓，遠離是非保自身",
@@ -68,7 +69,8 @@ const lotList = [
 "第60籤 中平：抱薪救火要提防，輕舉妄動易遭殃，安心守舊行仁善，穩穩當當福綿長"
 ];
 
-let isShengjiao = false;
+let successSaintCount = 0; //累計聖杯次數
+const NEED_SAINT = 3; // 需要幾次聖杯
 
 // 擲杯邏輯
 document.getElementById('throwBtn').addEventListener('click', async () => {
@@ -76,7 +78,6 @@ document.getElementById('throwBtn').addEventListener('click', async () => {
     lotBox.classList.remove('show');
     lotBox.innerText = '';
     resBox.innerText = '正在擲杯問城隍爺...';
-    isShengjiao = false;
 
     cup1.classList.add('shake');
     cup2.classList.add('shake');
@@ -90,20 +91,32 @@ document.getElementById('throwBtn').addEventListener('click', async () => {
     cup1.className = `cup ${c1 ? 'face-up' : 'face-down'}`;
     cup2.className = `cup ${c2 ? 'face-up' : 'face-down'}`;
 
+    let isSaint = false;
     if(c1 && c2){
-        resBox.innerText = '兩面皆正 → 笑杯，請誠心再問城隍爺';
+        resBox.innerText = '兩面皆正 → 笑杯，聖杯計數歸零，請重新誠心問卜';
+        successSaintCount = 0;
     }else if(!c1 && !c2){
-        resBox.innerText = '兩面皆反 → 陰杯，事宜保守暫緩行事';
+        resBox.innerText = '兩面皆反 → 陰杯，事宜保守暫緩行事，聖杯計數歸零';
+        successSaintCount = 0;
     }else{
-        resBox.innerText = '一正一反 → 聖杯！城隍爺示可抽取靈籤';
-        isShengjiao = true;
+        resBox.innerText = '一正一反 → 聖杯！';
+        isSaint = true;
+        successSaintCount +=1;
+    }
+
+    // 更新畫面計數顯示
+    countText.innerText = `已累計聖杯：${successSaintCount} / ${NEED_SAINT}`;
+
+    // 達到3次聖杯解鎖抽籤
+    if(successSaintCount >= NEED_SAINT){
+        resBox.innerText += `\n已累計${NEED_SAINT}次聖杯，可以抽取靈籤！`;
         lotBtn.disabled = false;
     }
 });
 
 // 抽取60靈籤
 lotBtn.addEventListener('click', () => {
-    if(!isShengjiao) return;
+    if(successSaintCount < NEED_SAINT) return;
     const rand = Math.floor(Math.random() * lotList.length);
     lotBox.innerText = lotList[rand];
     lotBox.classList.add('show');
