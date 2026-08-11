@@ -1,9 +1,9 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Noto Sans TC",微軟正黑體,sans-serif}
 body{background:#f8f2e9;padding:20px}
-.box{max-width:520px;margin:0 auto;background:#fff;padding:26px;border-radius:14px;box-shadow:0 3px 12px #d4c8b8}
+.box{max-width:580px;margin:0 auto;background:#fff;padding:26px;border-radius:14px;box-shadow:0 3px 12px #d4c8b8}
 h1{text-align:center;color:#8b2323;margin-bottom:22px;font-size:22px}
 
-.cup-box{display:flex;gap:36px;justify-content:center;margin:24px 0}
+.cup-box{display:flex;gap:40px;justify-content:center;margin:24px 0}
 .cup{width:64px;height:84px;border-radius:10px;background:#b87333;transition:all 0.6s ease}
 
 @keyframes shake {
@@ -16,7 +16,7 @@ h1{text-align:center;color:#8b2323;margin-bottom:22px;font-size:22px}
 .face-up{transform:rotateY(180deg);background:#f0d6b9}
 .face-down{transform:rotateY(0deg);background:#8c4a1a}
 
-.cup-area,.lot-area{min-height:86px;padding:18px;border:1px solid #e2d6c8;border-radius:10px;margin:14px 0;text-align:center;font-size:17px}
+.cup-area,.lot-area{min-height:90px;padding:18px;border:1px solid #e2d6c8;border-radius:10px;margin:14px 0;text-align:center;font-size:16px;line-height:1.6}
 .lot-area.show{background:#fff7e8}
 
 button{width:100%;padding:13px;font-size:17px;border:none;border-radius:10px;background:#a62828;color:white;margin:7px 0;cursor:pointer;transition:0.2s}
