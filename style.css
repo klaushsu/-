@@ -4,7 +4,35 @@ body{background:#f8f2e9;padding:20px}
 h1{text-align:center;color:#8b2323;margin-bottom:22px;font-size:22px}
 
 .cup-box{display:flex;gap:40px;justify-content:center;margin:24px 0}
-.cup{width:64px;height:84px;border-radius:10px;background:#b87333;transition:all 0.6s ease}
+/* 傳統半月茭杯造型 */
+.cup{
+  width:72px;
+  height:90px;
+  position:relative;
+  transition:all 0.6s ease;
+}
+.cup::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:72px;
+  height:50px;
+  background:#b87333;
+  border-radius:50% 50% 45% 45%;
+  border-bottom:3px solid #8c4a1a;
+}
+.cup::after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:22px;
+  height:22px;
+  background:#8c4a1a;
+  border-radius:50%;
+}
 
 @keyframes shake {
   0%,100%{transform:rotate(0deg)}
@@ -13,13 +41,47 @@ h1{text-align:center;color:#8b2323;margin-bottom:22px;font-size:22px}
   75%{transform:rotate(12deg)}
 }
 .shake{animation:shake 0.8s ease-in-out}
-.face-up{transform:rotateY(180deg);background:#f0d6b9}
-.face-down{transform:rotateY(0deg);background:#8c4a1a}
 
-.cup-area,.lot-area{min-height:90px;padding:18px;border:1px solid #e2d6c8;border-radius:10px;margin:14px 0;text-align:center;font-size:16px;line-height:1.6}
+/* 反面（陰面）原色、正面（陽面）淺色 */
+.face-up{transform:rotateY(180deg)}
+.face-up::before{background:#f0d6b9;border-bottom-color:#d9b38c}
+.face-up::after{background:#d9b38c}
+
+.face-down{transform:rotateY(0deg)}
+.face-down::before{background:#b87333;border-bottom-color:#8c4a1a}
+.face-down::after{background:#8c4a1a}
+
+.cup-area,.lot-area{
+  min-height:90px;
+  padding:18px;
+  border:1px solid #e2d6c8;
+  border-radius:10px;
+  margin:14px 0;
+  text-align:center;
+  font-size:16px;
+  line-height:1.6;
+}
+.count-text{
+  text-align:center;
+  font-size:16px;
+  color:#8b2323;
+  margin:8px 0;
+  font-weight:bold;
+}
 .lot-area.show{background:#fff7e8}
 
-button{width:100%;padding:13px;font-size:17px;border:none;border-radius:10px;background:#a62828;color:white;margin:7px 0;cursor:pointer;transition:0.2s}
+button{
+  width:100%;
+  padding:13px;
+  font-size:17px;
+  border:none;
+  border-radius:10px;
+  background:#a62828;
+  color:white;
+  margin:7px 0;
+  cursor:pointer;
+  transition:0.2s;
+}
 button:active{transform:scale(0.97)}
 button:disabled{background:#b98888;cursor:not-allowed}
 
@@ -28,6 +90,13 @@ hr{margin:20px 0;border-top:1px solid #e9e2d8}
 .merit-block{text-align:center;margin-top:18px}
 .merit-block h3{color:#8b2323;margin-bottom:8px}
 .merit-block p{color:#666;margin-bottom:12px}
-.donate-button{width:100%;padding:14px;border-radius:10px;background:#c41e3a;color:#fff;font-size:17px}
+.donate-button{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  background:#c41e3a;
+  color:#fff;
+  font-size:17px;
+}
 .tip{font-size:13px;color:#888;margin-top:8px}
 a{text-decoration:none}
